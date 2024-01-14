@@ -133,6 +133,7 @@ class HBNBCommand(cmd.Cmd):
             elif self.is_int(value):
                 kwargs[key] = int(value)
             else:
+                value = value.replace("_", " ")
                 kwargs[key] = value.strip('"\'')
 
         new_instance = HBNBCommand.classes[args_splitted[0]](**kwargs)
