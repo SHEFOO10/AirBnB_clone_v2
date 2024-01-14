@@ -10,6 +10,29 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
+        if cls:
+            from models.base_model import BaseModel
+            from models.user import User
+            from models.place import Place
+            from models.state import State
+            from models.city import City
+            from models.amenity import Amenity
+            from models.review import Review
+
+            classes = {
+                        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                        'State': State, 'City': City, 'Amenity': Amenity,
+                        'Review': Review
+                      }
+            filterd_objs = {}
+
+            if cls.__name__ in classes:
+                for key, value in FileStorage.__objects.items():
+                    if key.split(".")[0] == cls.__name__:
+                        filterd_objs.update({key: value})
+
+            return filterd_objs
+
         return FileStorage.__objects
 
     def new(self, obj):
