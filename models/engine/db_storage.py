@@ -38,14 +38,13 @@ class DBStorage:
         """query on the current database session (self.__session) all
         objects depending of the class name (argument cls)"""
         objs = {}
-
         if cls:
             for row in self.__session.query(cls).all():
                 objs.update({'{}.{}'.
                              format(type(row).__name__, row.id): row})
         else:
             for key, value in classes.items():
-                for row in self.__session.query(value):
+                for row in self.__session.query(value).all():
                     objs.update({'{}.{}'.
                                  format(type(row).__name__, row.id): row})
         return objs
