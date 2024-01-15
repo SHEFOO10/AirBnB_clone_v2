@@ -18,6 +18,7 @@ classes = classes = {'User': User, 'Place': Place, 'State': State,
 
 
 class DBStorage:
+    """create database engine"""
     __engine = None
     __session = None
 
