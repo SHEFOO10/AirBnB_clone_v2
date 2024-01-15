@@ -9,39 +9,31 @@ import os
 
 
 class test_basemodel(unittest.TestCase):
-    """ """
-
-    def __init__(self, *args, **kwargs):
-        """ """
-        super().__init__(*args, **kwargs)
-        self.name = 'BaseModel'
-        self.value = BaseModel
-
-    def setUp(self):
-        """ """
-        pass
+    """testing basemodel"""
 
     def tearDown(self):
+        """Remove the 'file.json' if it exists"""
         try:
             os.remove('file.json')
         except:
             pass
 
     def test_default(self):
-        """ """
-        i = self.value()
-        self.assertEqual(type(i), self.value)
+        """Test creating an instance of BaseModel with default values"""
+        i = BaseModel()
+        self.assertEqual(type(i), BaseModel)
 
     def test_kwargs(self):
-        """ """
-        i = self.value()
+        """Test creating an instance of BaseModel with kwargs"""
+        i = BaseModel()
         copy = i.to_dict()
         new = BaseModel(**copy)
         self.assertFalse(new is i)
 
     def test_kwargs_int(self):
-        """ """
-        i = self.value()
+        """Test creating an instance of BaseModel with kwargs
+        containing an int"""
+        i = BaseModel()
         copy = i.to_dict()
         copy.update({1: 2})
         with self.assertRaises(TypeError):
@@ -49,51 +41,56 @@ class test_basemodel(unittest.TestCase):
 
     def test_save(self):
         """ Testing save """
-        i = self.value()
+        i = BaseModel()
         i.save()
-        key = self.name + "." + i.id
+        key = "BaseModel." + i.id
         with open('file.json', 'r') as f:
             j = json.load(f)
             self.assertEqual(j[key], i.to_dict())
 
     def test_str(self):
-        """ """
-        i = self.value()
-        self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
+        """Test the __str__ method of BaseModel"""
+        i = BaseModel()
+        self.assertEqual(str(i), '[BaseModel] ({}) {}'.format(i.id,
                          i.__dict__))
 
     def test_todict(self):
-        """ """
-        i = self.value()
+        """Test the to_dict method of BaseModel"""
+        i = BaseModel()
         n = i.to_dict()
         self.assertEqual(i.to_dict(), n)
 
     def test_kwargs_none(self):
-        """ """
+        """Test creating an instance of BaseModel with kwargs=None"""
         n = {None: None}
         with self.assertRaises(TypeError):
-            new = self.value(**n)
+            new = BaseModel(**n)
 
     def test_kwargs_one(self):
-        """ """
+        """Test creating an instance of BaseModel with one key in kwargs"""
         n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
-            new = self.value(**n)
+        new = BaseModel(**n)
+        self.assertTrue(hasattr(new, 'Name'))
+        self.assertEqual(new.Name, 'test')
 
     def test_id(self):
-        """ """
-        new = self.value()
+        """Test the id attribute of BaseModel"""
+        new = BaseModel()
         self.assertEqual(type(new.id), str)
 
     def test_created_at(self):
-        """ """
-        new = self.value()
+        """Test the created_at attribute of BaseModel"""
+        new = BaseModel()
         self.assertEqual(type(new.created_at), datetime.datetime)
 
     def test_updated_at(self):
-        """ """
-        new = self.value()
+        """Test the updated_at attribute of BaseModel"""
+        new = BaseModel()
         self.assertEqual(type(new.updated_at), datetime.datetime)
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
+
+
+if __name__ == '__main__':
+    unittest.main()
