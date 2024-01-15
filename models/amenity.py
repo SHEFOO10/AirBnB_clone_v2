@@ -9,4 +9,6 @@ from sqlalchemy.orm import relationship
 class Amenity(BaseModel, Base):
     __tablename__ = 'amenities'
     name = Column(String(128), nullable=False)
-    place_amenities = relationship('Place', secondary=association_table, viewonly=False)
+    place_amenities = relationship('Place',
+                                   secondary=association_table,
+                                   viewonly=False)
