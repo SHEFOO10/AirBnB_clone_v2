@@ -1,10 +1,15 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import String, Column, Integer, Float, ForeignKey
+from sqlalchemy import String, Column, Integer, Float, ForeignKey, Table
 from os import getenv
 from sqlalchemy.orm import relationship
 
+
+association_table = Table('place_amenity', Base.metadata,
+    Column('place_id', ForeignKey('places.id'), nullable=False),
+    Column('amenity_id', ForeignKey('amenities.id'), nullable=False)
+)
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -22,3 +27,4 @@ class Place(BaseModel, Base):
     amenity_ids = []
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship('Review', backref='Place', cascade='all')
+        amenities = relationship('Amenity', secondary=association_table,  viewonly=False)
