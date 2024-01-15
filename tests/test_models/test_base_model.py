@@ -15,7 +15,7 @@ class test_basemodel(unittest.TestCase):
         """Remove the 'file.json' if it exists"""
         try:
             os.remove('file.json')
-        except:
+        except FileNotFoundError:
             pass
 
     def test_default(self):

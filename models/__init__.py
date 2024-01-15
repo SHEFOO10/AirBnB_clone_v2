@@ -16,5 +16,3 @@ else:
     storage = FileStorage()
 
 storage.reload()
-
-# __all__ = ['State', 'Place', ]
