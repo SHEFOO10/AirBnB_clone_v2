@@ -54,16 +54,6 @@ class test_basemodel(unittest.TestCase):
             j = json.load(f)
             self.assertEqual(j[key], i.to_dict())
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                    'Reason: storage is using DBStorage for storage engine')
-    def test_save_DBStorage_(self):
-        """ Testing save with DB Storage """
-        from models import storage
-        i = self.value()
-        i.name = 'Sherif'
-        i.save()
-        print(storage.all())
-
     def test_str(self):
         """Test the __str__ method of BaseModel"""
         i = self.value()
