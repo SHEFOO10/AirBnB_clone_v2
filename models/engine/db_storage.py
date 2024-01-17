@@ -12,7 +12,7 @@ from models.base_model import Base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
 
-classes = classes = {'User': User, 'Place': Place, 'State': State,
+classes = {'User': User, 'Place': Place, 'State': State,
                      'City': City, 'Amenity': Amenity,
                      'Review': Review}
 
