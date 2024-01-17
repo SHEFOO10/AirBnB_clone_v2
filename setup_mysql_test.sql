@@ -1,4 +1,5 @@
 -- script that prepares a MySQL server for the project
+-- create User and database from the User
 
 CREATE DATABASE IF NOT EXISTS hbnb_test_db;
 
