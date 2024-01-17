@@ -6,7 +6,8 @@ from models import storage
 import os
 
 
-@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', 'reason')
+@unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
+                 'Reason: storage is using DBStorage for storage engine')
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
 
