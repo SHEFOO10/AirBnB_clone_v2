@@ -34,4 +34,5 @@ class Place(BaseModel, Base):
         reviews = relationship('Review', backref='Place', cascade='all')
         amenities = relationship('Amenity',
                                  secondary=association_table,
-                                 viewonly=False)
+                                 viewonly=False,
+                                 overlaps='places')
