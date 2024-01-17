@@ -43,7 +43,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = self.value(**copy)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
                     'Reason: storage is using DBStorage for storage engine')
     def test_save(self):
         """ Testing save """
@@ -54,9 +54,9 @@ class test_basemodel(unittest.TestCase):
             j = json.load(f)
             self.assertEqual(j[key], i.to_dict())
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db',
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
                     'Reason: storage is using DBStorage for storage engine')
-    def test_save_DBStorage(self):
+    def test_save_DBStorage_(self):
         """ Testing save with DB Storage """
         from models import storage
         i = self.value()
