@@ -13,8 +13,8 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
 
 classes = {'User': User, 'Place': Place, 'State': State,
-                     'City': City, 'Amenity': Amenity,
-                     'Review': Review}
+           'City': City, 'Amenity': Amenity,
+           'Review': Review}
 
 
 class DBStorage:
