@@ -27,18 +27,16 @@ def do_deploy(archive_path):
     if path.exists(archive_path) is False:
         return False
     try:
+        put(archive_path, "/tmp/")
         archive_name = archive_path.split('/')[-1]
-        remote_path = "/data/web_static/releases/" + archive_name.split('.')[0]
-        put(f"{archive_path}", "/tmp/")
+        remote_path = "/data/web_static/releases/{}".format(archive_name.split('.')[0])
         run(f"mkdir -p {remote_path}")
-        run("tar -xvzf /tmp/{} -C {}"
-            .format(archive_name, remote_path))
+        run("tar -xzf /tmp/{} -C {}".format(archive_name, remote_path))
         run("rm -f /tmp/{}".format(archive_name))
-        run(f"mv {remote_path}/web_static/* {remote_path}/")
-        run(f"rm -rf {remote_path}/web_static")
+        run("mv {}/web_static/* {}/".format(remote_path, remote_path))
+        run("rm -rf {}/web_static".format(remote_path))
         run("rm -rf /data/web_static/current")
-        run(f"ln -s /data/web_static/releases/{archive_name.split('.')[0]} \
-/data/web_static/current")
+        run("ln -s {}/ /data/web_static/current".format(remote_path))
         return True
     except Exception:
         return False
