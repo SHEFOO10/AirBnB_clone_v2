@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-""" 3. Full deployment """
+""" # 2. Deploy archive! """
 from fabric.api import *
 from datetime import datetime
 import os.path as path
 
 
 env.hosts = ["34.224.63.137", "100.25.192.100"]
-env.user = "ubuntu"
 
 
 def do_pack():
@@ -45,11 +44,8 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """
-    creates and distributes an archive to your web servers
-    """
-    path = do_pack()
-    if path is None:
+    """ creates and distributes an archive to your web servers """
+    archive_path = do_pack()
+    if archive_path is None:
         return False
-
-    return do_deploy(archive_path=path)
+    return do_deploy(archive_path)
