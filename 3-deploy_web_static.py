@@ -51,6 +51,5 @@ def deploy():
     path = do_pack()
     if path is False:
         return False
-    if do_deploy(path) is False:
-        return False
-    return True
+
+    return do_deploy(archive_path=path)
