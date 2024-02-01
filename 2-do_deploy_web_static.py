@@ -27,36 +27,17 @@ def do_deploy(archive_path):
     if path.exists(archive_path) is False:
         return False
     try:
-        # upload archive to remote host
-        put(f"{archive_path}", "/tmp/")
-
-        # get archive name
         archive_name = archive_path.split('/')[-1]
-
-        # set path for target directory
         remote_path = "/data/web_static/releases/" + archive_name.split('.')[0]
-
-        # make sure target directory is present
-        sudo(f"mkdir -p {remote_path}")
-
-        # extract archive content
-        sudo("tar -xvzf /tmp/{} -C {}"
-             .format(archive_name, remote_path))
-
-        # delete archive from the remote server
-        sudo("rm -f /tmp/{}".format(archive_name))
-
-        # mv content of web_static_datetime/web_static to web_static_datetime
-        sudo(f"mv -f {remote_path}/web_static/* {remote_path}/")
-
-        # delete web_static directory
-        sudo(f"rm -r {remote_path}/web_static")
-
-        # remove existing link
-        sudo("rm -f /data/web_static/current")
-
-        # recreate link
-        sudo(f"ln -s /data/web_static/releases/{archive_name.split('.')[0]} \
+        put(f"{archive_path}", "/tmp/")
+        run(f"mkdir -p {remote_path}")
+        run("tar -xvzf /tmp/{} -C {}"
+            .format(archive_name, remote_path))
+        run("rm -f /tmp/{}".format(archive_name))
+        run(f"mv {remote_path}/web_static/* {remote_path}/")
+        run(f"rm -rf {remote_path}/web_static")
+        run("rm -rf /data/web_static/current")
+        run(f"ln -s /data/web_static/releases/{archive_name.split('.')[0]} \
 /data/web_static/current")
         return True
     except Exception:
