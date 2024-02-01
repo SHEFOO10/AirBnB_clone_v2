@@ -4,7 +4,6 @@ from datetime import datetime
 import os.path as path
 
 
-env.user = "ubuntu"
 env.hosts = ["34.224.63.137", "100.25.192.100"]
 
 
