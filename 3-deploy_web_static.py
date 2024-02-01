@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" 3. Full deployment """
 from fabric.api import *
 from datetime import datetime
 import os.path as path
