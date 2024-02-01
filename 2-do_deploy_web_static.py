@@ -27,9 +27,10 @@ def do_deploy(archive_path):
     if path.exists(archive_path) is False:
         return False
     with cd('/tmp'):
-        put(f"{archive_path}", f"{archive_path}")
-        sudo("tar -xvzf {} -C /data/web_static/releases/".format(archive_path))
-        sudo("rm -f {}".format(archive_path))
+        archive_name = archive_path.split('/')[-1]
+        put(f"{archive_path}", f"{archive_name}")
+        sudo("tar -xvzf {} -C /data/web_static/releases/".format(archive_name))
+        sudo("rm -f {}".format(archive_name))
         sudo("rm -f /data/web_static/current")
         sudo("ln -s /data/web_static/releases/web_static \
 /data/web_static/current")
