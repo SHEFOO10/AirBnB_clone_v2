@@ -6,6 +6,7 @@ import os.path as path
 
 
 env.hosts = ["34.224.63.137", "100.25.192.100"]
+env.archive_path = ''
 
 
 def do_pack():
@@ -47,7 +48,9 @@ def deploy():
     """
     creates and distributes an archive to your web servers
     """
-    archive_path = do_pack()
-    if archive_path is None:
-        return False
-    return do_deploy(archive_path)
+    if env.archive_path == '':
+        archive_path = do_pack()
+        if archive_path is None:
+            return False
+        env.archive_path = archive_path
+    return do_deploy(env.archive_path)
