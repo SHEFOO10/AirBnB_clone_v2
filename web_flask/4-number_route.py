@@ -24,16 +24,19 @@ def get_text(text):
     return "C " + text.replace('_', ' ')
 
 
+@app.route('/python/',
+           strict_slashes=False)
 @app.route('/python/<text>',
            strict_slashes=False)
-def get_text_2(text):
+def get_text_2(text="is cool"):
+    """ get text from route /python/<text> """
     return "Python " + text.replace('_', ' ')
 
 
 @app.route('/number/<int:n>',
            strict_slashes=False)
 def get_int(n):
-    return str(n)
+    return str(n) + " is a number"
 
 
 if __name__ == '__main__':
