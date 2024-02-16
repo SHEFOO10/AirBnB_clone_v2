@@ -12,7 +12,7 @@ app = Flask(__name__)
 def list_states():
     """ list states """
     states = storage.all(State)
-    sorted_states = sorted(states.values(), key=lambda state: state.name)
+    sorted_states = sorted(list(states.values()), key=lambda state: state.name)
     return render_template('7-states_list.html', states=sorted_states)
 
 
