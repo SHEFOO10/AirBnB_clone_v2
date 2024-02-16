@@ -12,14 +12,13 @@ app = Flask(__name__)
 def list_states():
     """ list states """
     states = storage.all(State)
-    filtered_states = []
-    for state, state_obj in states.items():
-        filtered_states.append((state_obj.id, state_obj.name))
-    return render_template('7-states_list.html', states=filtered_states)
+    sorted_states = sorted(states.values(), key=lambda state: state.name)
+    return render_template('7-states_list.html', states=sorted_states)
 
 
 @app.teardown_appcontext
 def teardown_db(exception=None):
+    """ refresh database after every request """
     storage.close()
 
 
