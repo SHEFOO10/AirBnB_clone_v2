@@ -14,6 +14,8 @@ class State(BaseModel, Base):
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         cities = relationship('City', backref='state', cascade='all')
+    if getenv('HBNB_TYPE_STORAGE') == 'fs':
+        cities = self.cities
 
     @property
     def cities(self):
