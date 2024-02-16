@@ -14,12 +14,11 @@ class State(BaseModel, Base):
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         cities = relationship('City', backref='state', cascade='all')
-    if getenv('HBNB_TYPE_STORAGE') == 'fs':
-        cities = self.cities
 
     @property
     def cities(self):
-        from models import storage
-        cities = storage.all(City)
-        return {city_id: city_obj for city_id, city_obj in cities.items()
-                if city_obj.state_id == self.id}
+        if getenv('HBNB_TYPE_STORAGE') == 'fs':
+            from models import storage
+            cities = storage.all(City)
+            return {city_id: city_obj for city_id, city_obj in cities.items()
+                    if city_obj.state_id == self.id}
