@@ -12,12 +12,12 @@ class State(BaseModel, Base):
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
 
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        cities = relationship('City', backref='state', cascade='all')
-
     @property
     def cities(self):
-        if getenv('HBNB_TYPE_STORAGE') == 'fs':
+        if getenv('HBNB_TYPE_STORAGE') == 'db':
+            cities = relationship('City', backref='state', cascade='all')
+            return cities
+        else:
             from models import storage
             cities = storage.all(City)
             return {city_id: city_obj for city_id, city_obj in cities.items()
