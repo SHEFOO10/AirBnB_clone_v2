@@ -20,14 +20,16 @@ def hbnb():
 
 @app.route('/c/<text>',
            strict_slashes=False)
-def get_text(text="is cool"):
+def get_text(text):
     """ get text from route /c/<text> """
     return "C " + text.replace('_', ' ')
 
 
+@app.route('/python/',
+           strict_slashes=False)
 @app.route('/python/<text>',
            strict_slashes=False)
-def get_text_2(text):
+def get_text_2(text="is cool"):
     """ get text from route /python/<text> """
     return "Python " + text.replace('_', ' ')
 
