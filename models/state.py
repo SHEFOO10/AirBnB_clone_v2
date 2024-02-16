@@ -17,7 +17,10 @@ class State(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE') == 'fs':
         @property
         def cities(self):
+            """ Get a list of City instances
+                that linked with the current state
+            """
             from models import storage
             cities = storage.all(City)
-            return {city_id: city_obj for city_id, city_obj in cities.items()
-                    if city_obj.state_id == self.id}
+            return [city_obj for city_id, city_obj in cities.items()
+                    if city_obj.state_id == self.id]
