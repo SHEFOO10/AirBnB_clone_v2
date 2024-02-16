@@ -44,7 +44,7 @@ class test_basemodel(unittest.TestCase):
             new = self.value(**copy)
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                    'Reason: storage is using DBStorage for storage engine')
+                     'Reason: storage is using DBStorage for storage engine')
     def test_save(self):
         """ Testing save """
         i = self.value()
