@@ -76,3 +76,7 @@ class FileStorage:
         """ rm obj from self.__objects"""
         if obj:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
+
+    def close(self):
+        """ close FileStorage Engine """
+        self.reload()
