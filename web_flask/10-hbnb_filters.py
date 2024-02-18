@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" List of states Flask script """
+""" Hbnb filters with Flask Server """
 from flask import Flask, render_template
 from models import storage
 from models.state import State
@@ -10,8 +10,8 @@ app = Flask(__name__)
 
 @app.route('/hbnb_filters',
            strict_slashes=False)
-def list_states():
-    """ list states """
+def hbnb_filters():
+    """ hbnb_filters """
     states = storage.all(State)
     sorted_states = sorted(list(states.values()),
                            key=lambda state: state.name)
