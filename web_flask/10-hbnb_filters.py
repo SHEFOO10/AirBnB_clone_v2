@@ -3,17 +3,22 @@
 from flask import Flask, render_template
 from models import storage
 from models.state import State
+from models.amenity import Amenity
 
 app = Flask(__name__)
 
 
-@app.route('/cities_by_states',
+@app.route('/hbnb_filters',
            strict_slashes=False)
 def list_states():
     """ list states """
     states = storage.all(State)
-    sorted_states = sorted(list(states.values()), key=lambda state: state.name)
-    return render_template('8-cities_by_states.html', states=sorted_states)
+    sorted_states = sorted(list(states.values()),
+                           key=lambda state: state.name)
+    amenities = sorted(list(storage.all(Amenity).values()),
+                       key=lambda amenity: amenity.name)
+    return render_template('10-hbnb_filters.html',
+                           states=sorted_states, amenities=amenities)
 
 
 @app.teardown_appcontext
