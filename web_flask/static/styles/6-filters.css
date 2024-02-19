@@ -33,6 +33,8 @@
 	display: none;
 	background-color: #FAFAFA;
 	width: 100%;
+	position: relative;
+	z-index: 99;
 	overflow-y: scroll;
 	max-height: 300px;
 	margin-left: -1px;
